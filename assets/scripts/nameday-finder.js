@@ -1,5 +1,5 @@
-const getNameday = async () => {
-    const response = await fetch('https://api.abalin.net/namedays?month=7&day=15');
+const getNameday = async (url) => {
+    const response = await fetch(url);
     return await response.json();
 };
 
