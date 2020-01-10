@@ -29,13 +29,19 @@ const setUrl = () => {
     }
 }
 
+const getDateString = (month, day) => {
+    month = ('0' + month).slice(-2);
+    day = ('0' + day ).slice(-2);
+    return new Date().getFullYear() + "-" + month + "-" + day;
+}
+
 const displayByName = resp => {
     const search = document.querySelector('#search').value;
     const searchUpperCase = (search.charAt(0).toUpperCase() +search.slice(1))
 
     resp.results.forEach(days => {
 
-        const date = new Date().getFullYear() + "-" + days.month + "-" + days.day;
+        const date = getDateString(days.month, days.day);
         const names = days.name.split(", ");
         let searchFoundHTML = "";
 
@@ -55,6 +61,17 @@ const displayByName = resp => {
     });
 };
 
+const displayByDate = resp => {
+    const date = getDateString(resp.data[0].dates.month, resp.data[0].dates.day);
+    const country = document.querySelector('#country').value;
+    const names = resp.data[0].namedays[country];
+    
+    document.querySelector("#result").innerHTML += `
+        <p class="mb-1">${date}</p>
+        <p>${names}</p>
+    `;
+};
+
 const display = resp => {
     console.log(resp);
     document.querySelector("#result").innerHTML = "";
@@ -63,7 +80,7 @@ const display = resp => {
             displayByName(resp);
             return;
         case 'date':
-            console.log(resp.data);
+            displayByDate(resp);
             return;
         default:
     }
