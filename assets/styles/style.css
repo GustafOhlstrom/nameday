@@ -44,3 +44,7 @@ p {
     margin-left: 0.5rem;
     color: gray;
 }
+
+.pointer {
+    cursor: pointer;
+}

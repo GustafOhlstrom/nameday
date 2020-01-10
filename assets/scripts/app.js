@@ -1,15 +1,14 @@
 // Update search bar depending on category selected
 const updateSearchBar = () => {
-    document.querySelector('#category').value == "name" ? 
-        document.querySelector("#search").type = "name": 
+    if(document.querySelector('#category').value == "name") {
+        document.querySelector("#search").type = "name";
+        document.querySelector('#search').classList.remove("pointer");
+    } else {
         document.querySelector("#search").type = "date";
+        document.querySelector('#search').classList.add("pointer");
+    }
 }
 updateSearchBar();
-
-document.querySelector('#category').addEventListener('change', function(e) {
-    updateSearchBar();
-    document.querySelector('#search').value = "";
-});
 
 const setUrl = () => {
     const search = document.querySelector('#search').value;
@@ -85,6 +84,20 @@ const display = resp => {
         default:
     }
 };
+
+// Event Listeners
+document.querySelector("#main-header").addEventListener("click", function(e) {
+    document.querySelector("#search").value = "";
+    document.querySelector("#country").value = "us";
+    document.querySelector("#category").value = "name";
+    document.querySelector("#result").innerHTML = "";
+    updateSearchBar();
+});
+
+document.querySelector('#category').addEventListener('change', function(e) {
+    updateSearchBar();
+    document.querySelector('#search').value = "";
+});
 
 document.querySelector('#finder').addEventListener('submit', function(e) {
     e.preventDefault();
