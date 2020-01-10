@@ -13,6 +13,7 @@ updateSearchBar();
 const setUrl = () => {
     const search = document.querySelector('#search').value;
     const country = document.querySelector('#country').value;
+    const timezone = document.querySelector('#time-zone').value;
     
     //return if no value and if name is less than 3 characters long, api need 3 or more chars 
     if(!search || search.lenght < 3) return;
@@ -23,7 +24,7 @@ const setUrl = () => {
         case 'date':
             const month = parseInt(search.slice(6, 7), 10);
             const day = parseInt(search.slice(8, 10), 10);
-            return `https://api.abalin.net/namedays?country=${country}&month=${month}&day=${day}`;
+            return `https://api.abalin.net/namedays?country=${country}&month=${month}&day=${day}&timezone=${timezone}`;
         default:
     }
 }

@@ -34,10 +34,12 @@ p {
 
 .search-bar:focus,
 .search-button:focus,
-#country,
-#category {
+#country:focus,
+#category:focus,
+#time-zone:focus {
     border: none;
     box-shadow: none;
+    outline: none;
 }
 
 .other-names {
@@ -47,4 +49,11 @@ p {
 
 .pointer {
     cursor: pointer;
+}
+
+#time-zone {
+    color: white;
+    text-align-last: right;
+    border: none;
+    outline: none;
 }
