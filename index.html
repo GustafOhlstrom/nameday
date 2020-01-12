@@ -16,7 +16,7 @@
 		<form id="finder" class="mb-4">
             <div class="mb-4">
                 <label class="mb-1" for="country">Country</label>
-                <select id="country" class="col form-control pointer" name="country">
+                <select id="country" class="col custom-select pointer" name="country">
                     <option value="us">USA</option>
                     <option value="sk">Slovakia</option>
                     <option value="se">Sweden</option>
@@ -33,19 +33,28 @@
                     <option value="at">Austria</option>
                 </select>
             </div>
-            <div class="row mb-1"> 
-                <select id="category" class="form-control col-3 col-md-2 pointer" name="category">
+            
+            <div class="input-group mb-1"> 
+                
+                <select id="category" class="custom-select pointer" name="category">
                     <option value="name">Name</option>
                     <option value="date">Date</option>
                 </select> 
-                <input id="search" class="search-bar form-control col" name="search" type="text">
-                <button class="search-button btn btn-primary ml-auto">
+
+                <input id="search" class="search-bar form-control" name="search" type="text">
+                
+                <button class="search-button btn btn-primary">
                     <i class="fas fa-search"></i>
                 </button>
+
             </div>
-            <div class="row justify-content-end mb-5">
-                <label class="m-0" for="time-zone">Time Zone:</label>
-                <select id="time-zone" class="pointer bg-dark" name="time-zone">
+            
+            <div class="input-group mb-5">
+
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="time-zone">Time Zone:</label>
+                  </div>
+                <select id="time-zone" class="pointer custom-select" name="time-zone">
                     <option value="America/Denver">America/Denver</option>
                     <option value="America/Costa_Rica">America/Costa_Rica</option>
                     <option value="America/Los_Angeles">America/Los_Angeles</option>
@@ -70,6 +79,7 @@
                     <option value="Etc/GMT-2">Etc/GMT-2</option>
                 </select>
             </div>
+            
         </form>
 
         <div id="result"></div>

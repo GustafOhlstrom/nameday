@@ -9,16 +9,6 @@ p {
     line-height: 1rem;
 }
 
-/* Bootstrap fixes */
-.row {
-    margin-left: 0;
-    margin-right: 0;
-}
-
-.form-control {
-    background-clip: unset;
-}
-
 /* Form  */
 .search-bar,
 #category {
@@ -42,18 +32,25 @@ p {
     outline: none;
 }
 
-.other-names {
-    margin-left: 0.5rem;
-    color: gray;
-}
-
 .pointer {
     cursor: pointer;
 }
 
-#time-zone {
-    color: white;
-    text-align-last: right;
-    border: none;
-    outline: none;
+#category {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 100px;
+}
+
+/* Result */
+#result p {
+    margin-left: 0.5rem;
+}
+
+#result p:first-of-type {
+    margin-left: 0;
+}
+
+.other-names {
+    color: gray;
 }
