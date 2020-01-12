@@ -12,10 +12,80 @@
     <script src="assets/scripts/app.js" async></script>
 </head>
 <body class="container bg-dark text-white">
-        <h1 id="main-header" class="text-center my-4 pointer">Nameday</h1>
-		<form id="finder" class="mb-4">
-            <div class="mb-4">
-                <label class="mb-1" for="country">Country</label>
+        <h1 id="main-header" class="text-center my-5 pointer">Nameday</h1>
+
+        <form id="proximity-date-finder" class="mb-5">
+            <div class="input-group mb-1">
+                <select id="proximity-date" class="col custom-select pointer" name="proximity-date">
+                    <option value="today">Today</option>
+                    <option value="tomorrow">Tomorrow</option>
+                    <option value="yesterday">Yesterday</option>
+                </select>
+            </div>
+            <div class="row">
+                <div class="input-group col-md-6 mb-1">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="proximity-date-country">Country</label>
+                    </div>
+                    <select id="proximity-date-country" class="col custom-select pointer" name="proximity-date-country">
+                        <option value="us">USA</option>
+                        <option value="sk">Slovakia</option>
+                        <option value="se">Sweden</option>
+                        <option value="pl">Poland</option>
+                        <option value="it">Italy</option>
+                        <option value="hu">Hungary</option>
+                        <option value="hr">Croatia</option>
+                        <option value="fr">France</option>
+                        <option value="fi">Finland</option>
+                        <option value="es">Spain</option>
+                        <option value="dk">Denmark</option>
+                        <option value="de">Germany</option>
+                        <option value="cz">Czechia</option>
+                        <option value="at">Austria</option>
+                    </select>
+                </div>
+
+                <div class="input-group col-md-6 mb-1">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="time-zone">Time Zone</label>
+                    </div>
+                    <select id="time-zone" class="pointer custom-select" name="time-zone">
+                        <option value="America/Denver">America/Denver</option>
+                        <option value="America/Costa_Rica">America/Costa_Rica</option>
+                        <option value="America/Los_Angeles">America/Los_Angeles</option>
+                        <option value="America/St_Vincent">America/St_Vincent</option>
+                        <option value="America/Toronto">America/Toronto</option>
+                        <option value="Europe/Amsterdam">Europe/Amsterdam</option>
+                        <option value="Europe/Monaco">Europe/Monaco</option>
+                        <option value="Europe/Prague">Europe/Prague</option>
+                        <option value="Europe/Isle_of_Man">Europe/Isle_of_Man</option>
+                        <option value="Africa/Cairo">Africa/Cairo</option>
+                        <option value="Africa/Johannesburg">Africa/Johannesburg</option>
+                        <option value="Africa/Nairobi">Africa/Nairobi</option>
+                        <option value="Asia/Yakutsk">Asia/Yakutsk</option>
+                        <option value="Asia/Hong_Kong">Asia/Hong_Kong</option>
+                        <option value="Asia/Taipei">Asia/Taipei</option>
+                        <option value="Pacific/Midway">Pacific/Midway</option>
+                        <option value="Pacific/Honolulu">Pacific/Honolulu</option>
+                        <option value="Etc/GMT-6">Etc/GMT-6</option>
+                        <option value="US/Samoa">US/Samoa</option>
+                        <option value="Zulu">Zulu</option>
+                        <option value="US/Hawaii">US/Hawaii</option>
+                        <option value="Israel">Israel</option>
+                        <option value="Etc/GMT-2">Etc/GMT-2</option>
+                    </select>
+                    <button class="search-button btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+		<form id="finder" class="mb-5">
+            <div class="input-group mb-1">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="country">Country</label>
+                </div>
                 <select id="country" class="col custom-select pointer" name="country">
                     <option value="us">USA</option>
                     <option value="sk">Slovakia</option>
@@ -48,38 +118,6 @@
                 </button>
 
             </div>
-            
-            <div class="input-group mb-5">
-
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="time-zone">Time Zone:</label>
-                  </div>
-                <select id="time-zone" class="pointer custom-select" name="time-zone">
-                    <option value="America/Denver">America/Denver</option>
-                    <option value="America/Costa_Rica">America/Costa_Rica</option>
-                    <option value="America/Los_Angeles">America/Los_Angeles</option>
-                    <option value="America/St_Vincent">America/St_Vincent</option>
-                    <option value="Europe/Amsterdam">Europe/Amsterdam</option>
-                    <option value="Europe/Monaco">Europe/Monaco</option>
-                    <option value="Europe/Prague">Europe/Prague</option>
-                    <option value="Europe/Isle_of_Man">Europe/Isle_of_Man</option>
-                    <option value="Africa/Cairo">Africa/Cairo</option>
-                    <option value="Africa/Johannesburg">Africa/Johannesburg</option>
-                    <option value="Africa/Nairobi">Africa/Nairobi</option>
-                    <option value="Asia/Yakutsk">Asia/Yakutsk</option>
-                    <option value="Asia/Hong_Kong">Asia/Hong_Kong</option>
-                    <option value="Asia/Taipei">Asia/Taipei</option>
-                    <option value="Pacific/Midway">Pacific/Midway</option>
-                    <option value="Pacific/Honolulu">Pacific/Honolulu</option>
-                    <option value="Etc/GMT-6">Etc/GMT-6</option>
-                    <option value="US/Samoa">US/Samoa</option>
-                    <option value="Zulu">Zulu</option>
-                    <option value="US/Hawaii">US/Hawaii</option>
-                    <option value="Israel">Israel</option>
-                    <option value="Etc/GMT-2">Etc/GMT-2</option>
-                </select>
-            </div>
-            
         </form>
 
         <div id="result"></div>

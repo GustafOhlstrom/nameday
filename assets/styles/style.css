@@ -4,7 +4,21 @@
     padding: 0;
 }
 
+/* Bootstrap fixes */
+.input-group-prepend {
+    width : 6.5rem;
+}
+  
+.input-group-prepend label {
+    width: 100%;
+    overflow: hidden;
+}
+
 /*  generic */
+#result h2 {
+    font-weight: bold;
+}
+
 p {
     line-height: 1rem;
 }
@@ -39,7 +53,8 @@ p {
 #category {
     flex-grow: 0;
     flex-shrink: 0;
-    flex-basis: 100px;
+    flex-basis: 6.5rem;
+    background-color: #e9ecef;
 }
 
 /* Result */
@@ -52,5 +67,6 @@ p {
 }
 
 .other-names {
-    color: gray;
+    color: rgb(226, 226, 226);
 }
+

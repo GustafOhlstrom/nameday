@@ -10,7 +10,7 @@ const updateSearchBar = () => {
 }
 updateSearchBar();
 
-const setUrl = () => {
+const setUrlSearch = () => {
     const search = document.querySelector('#search').value;
     const country = document.querySelector('#country').value;
     const timezone = document.querySelector('#time-zone').value;
@@ -27,6 +27,14 @@ const setUrl = () => {
             return `https://api.abalin.net/namedays?country=${country}&month=${month}&day=${day}&timezone=${timezone}`;
         default:
     }
+}
+
+const setUrlProximityDate= () => {
+    const country = document.querySelector('#proximity-date-country').value;
+    const timezone = document.querySelector('#time-zone').value;
+    const proximityDate = document.querySelector('#proximity-date').value;
+
+    return `https://api.abalin.net/${proximityDate}?timezone=${timezone}&country=${country}`;
 }
 
 const getDateString = (month, day) => {
@@ -47,16 +55,20 @@ const displayByName = resp => {
 
         names.forEach((name,i) => {
             if(name === search || name === searchUpperCase) {
-                searchFoundHTML = `<p class="mb-1">${name}</p>`;
+                searchFoundHTML = `
+                    <p class="text-center mb-1">${name}</p>
+                `;
                 names.splice(i, 1);
             }
         });
         let nameString = names.join(', ');
 
         document.querySelector("#result").innerHTML += `
-            <p class="mb-1">${date}</p>
-            ${searchFoundHTML}
-            <p class="mb-4 other-names">${nameString}</p>
+            <div class="jumbotron bg-primary">
+                <h2 class="text-center mb-3">${date}</h2>
+                ${searchFoundHTML}
+                <p class="text-center mb-4 other-names">${nameString}</p>
+            </div>
         `;  
     });
 };
@@ -67,8 +79,28 @@ const displayByDate = resp => {
     const names = resp.data[0].namedays[country];
     
     document.querySelector("#result").innerHTML += `
-        <p class="mb-1">${date}</p>
-        <p>${names}</p>
+        <div class="jumbotron bg-primary">
+            <h2 class="text-center mb-3">${date}</h2>
+            <p class="text-center">${names}</p>
+        </div>
+    `;
+};
+
+const displayProximityDate = resp => {
+    console.log(resp);
+    document.querySelector("#result").innerHTML = "";
+    const date = getDateString(resp.data[0].dates.month, resp.data[0].dates.day);
+    const country = document.querySelector('#proximity-date-country').value;
+    const names = resp.data[0].namedays[country];
+    const proximityDate = document.querySelector('#proximity-date').value;
+    const proximityDateUpperCase = (proximityDate.charAt(0).toUpperCase() +proximityDate.slice(1))
+    
+    document.querySelector("#result").innerHTML += `
+        <div class="jumbotron bg-primary">
+            <h2 class="text-center mb-3">${proximityDateUpperCase} ${date}</h2>
+            <h3 class="text-center mb-2"></h3>
+            <p class="text-center">${names}</p>
+        </div>
     `;
 };
 
@@ -104,11 +136,26 @@ document.querySelector('#finder').addEventListener('submit', function(e) {
     e.preventDefault();
     
     console.log(e);
-    console.log(setUrl());
+    console.log(setUrlSearch());
 
-    if(setUrl()){
-        getNameday(setUrl())
+    if(setUrlSearch()){
+        getNameday(setUrlSearch())
             .then(display)
+            .catch(err =>{
+                console.error("An error occured", err);
+            });
+    }
+});
+
+document.querySelector('#proximity-date-finder').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    console.log(e);
+    console.log(setUrlProximityDate());
+
+    if(setUrlProximityDate()){
+        getNameday(setUrlProximityDate())
+            .then(displayProximityDate)
             .catch(err =>{
                 console.error("An error occured", err);
             });
