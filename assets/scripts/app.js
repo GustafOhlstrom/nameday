@@ -38,7 +38,7 @@ const setUrlProximityDate= () => {
 // Display day and month as text
 const getDateText = (day, month) => {
     const date = new Date(new Date().getFullYear(), (month-1), day);
-    const monthText = date.toLocaleString('default', { month: 'short' }).slice(0, -1);
+    const monthText = date.toLocaleString('default', { month: 'short' });
     return  day + " " + monthText;
 };
 
