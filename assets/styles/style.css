@@ -3,6 +3,10 @@
     margin: 0;
     padding: 0;
 }
+/*  generic */
+p {
+    line-height: 1rem;
+}
 
 /* Bootstrap fixes */
 .input-group-prepend {
@@ -14,33 +18,13 @@
     overflow: hidden;
 }
 
-/*  generic */
-#result h2 {
+#result h2,
+#main-header {
     font-weight: bold;
 }
 
-p {
-    line-height: 1rem;
-}
-
 /* Form  */
-.search-bar,
-#category {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.search-button,
-.search-bar {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.search-bar:focus,
-.search-button:focus,
-#country:focus,
-#category:focus,
-#time-zone:focus {
+.focus-fix:focus {
     border: none;
     box-shadow: none;
     outline: none;
@@ -67,6 +51,5 @@ p {
 }
 
 .other-names {
-    color: rgb(226, 226, 226);
+    color: #e2e2e2;
 }
-

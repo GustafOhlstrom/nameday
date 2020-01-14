@@ -16,7 +16,7 @@
 
         <form id="proximity-date-finder" class="mb-5">
             <div class="input-group mb-1">
-                <select id="proximity-date" class="col custom-select pointer" name="proximity-date">
+                <select id="proximity-date" class="col custom-select pointer focus-fix" name="proximity-date">
                     <option value="today">Today</option>
                     <option value="tomorrow">Tomorrow</option>
                     <option value="yesterday">Yesterday</option>
@@ -27,7 +27,7 @@
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="proximity-date-country">Country</label>
                     </div>
-                    <select id="proximity-date-country" class="col custom-select pointer" name="proximity-date-country">
+                    <select id="proximity-date-country" class="col custom-select pointer focus-fix" name="proximity-date-country">
                         <option value="us">USA</option>
                         <option value="sk">Slovakia</option>
                         <option value="se">Sweden</option>
@@ -44,12 +44,11 @@
                         <option value="at">Austria</option>
                     </select>
                 </div>
-
                 <div class="input-group col-md-6 mb-1">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="time-zone">Time Zone</label>
                     </div>
-                    <select id="time-zone" class="pointer custom-select" name="time-zone">
+                    <select id="time-zone" class="custom-select pointer focus-fix" name="time-zone">
                         <option value="America/Denver">America/Denver</option>
                         <option value="America/Costa_Rica">America/Costa_Rica</option>
                         <option value="America/Los_Angeles">America/Los_Angeles</option>
@@ -74,9 +73,11 @@
                         <option value="Israel">Israel</option>
                         <option value="Etc/GMT-2">Etc/GMT-2</option>
                     </select>
-                    <button class="search-button btn btn-primary">
-                        <i class="fas fa-search"></i>
-                    </button>
+                    <div class="input-group-append">
+                        <button class="search-button btn btn-primary focus-fix">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </form>
@@ -86,7 +87,7 @@
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="country">Country</label>
                 </div>
-                <select id="country" class="col custom-select pointer" name="country">
+                <select id="country" class="col custom-select pointer focus-fix" name="country">
                     <option value="us">USA</option>
                     <option value="sk">Slovakia</option>
                     <option value="se">Sweden</option>
@@ -103,20 +104,17 @@
                     <option value="at">Austria</option>
                 </select>
             </div>
-            
             <div class="input-group mb-1"> 
-                
-                <select id="category" class="custom-select pointer" name="category">
+                <select id="category" class="custom-select pointer focus-fix" name="category">
                     <option value="name">Name</option>
                     <option value="date">Date</option>
                 </select> 
-
-                <input id="search" class="search-bar form-control" name="search" type="text">
-                
-                <button class="search-button btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
-
+                <input id="search" class="search-bar form-control focus-fix" name="search" type="text">
+                <div class="input-group-append">
+                    <button class="search-button btn btn-primary focus-fix">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
             </div>
         </form>
 
