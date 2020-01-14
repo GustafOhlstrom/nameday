@@ -101,7 +101,7 @@ const displayByName = resp => {
         // Display all names found
         document.querySelector("#result").innerHTML += `
             <div class="jumbotron bg-primary">
-                <h2 class="text-center mb-3">${country} - ${date}</h2>
+                <h2 class="text-center mb-3">${country} - <span class="line-break">${date}</span></h2></h2>
                 ${searchFoundHTML}
                 <p class="text-center mb-4 other-names">${nameString}</p>
             </div>
@@ -118,7 +118,7 @@ const displayByDate = resp => {
     
     document.querySelector("#result").innerHTML += `
         <div class="jumbotron bg-primary">
-            <h2 class="text-center mb-3">${country} - ${date}</h2>
+            <h2 class="text-center mb-3">${country} - <span class="line-break">${date}</span></h2></h2>
             <p class="text-center">${names}</p>
         </div>
     `;
@@ -136,7 +136,7 @@ const displayProximityDate = resp => {
     
     document.querySelector("#result").innerHTML += `
         <div class="jumbotron bg-primary">
-            <h2 class="text-center mb-2">${country} - ${proximityDateUpperCase} ${date}</h2>
+            <h2 class="text-center mb-2">${country} - ${proximityDateUpperCase} <span class="line-break">${date}</span></h2>
             <p class="text-center">${names}</p>
         </div>
     `;
