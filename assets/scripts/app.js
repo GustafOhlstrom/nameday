@@ -7,7 +7,7 @@ const updateSearchBar = () => {
         document.querySelector("#search").type = "date";
         document.querySelector('#search').classList.add("pointer");
     }
-}
+};
 updateSearchBar();
 
 // Return url for api depending on category, search and country
@@ -16,9 +16,6 @@ const setUrlSearch = () => {
     const country = document.querySelector('#country').value;
     const timezone = document.querySelector('#time-zone').value;
     
-    // Return if no value and if name is less than 3 characters long, api need 3 or more chars 
-    if(!search || search.lenght < 3) return;
-
     switch(document.querySelector('#category').value) {
         case 'name':
             return `https://api.abalin.net/getdate?name=${search}&country=${country}`;
@@ -27,8 +24,8 @@ const setUrlSearch = () => {
             const day = parseInt(search.slice(8, 10), 10);
             return `https://api.abalin.net/namedays?country=${country}&month=${month}&day=${day}`;
         default:
-    }
-}
+    };
+};
 
 // Return url for api depending on proximty day, country and timezone 
 const setUrlProximityDate= () => {
@@ -36,22 +33,57 @@ const setUrlProximityDate= () => {
     const timezone = document.querySelector('#time-zone').value;
     const proximityDate = document.querySelector('#proximity-date').value;
     return `https://api.abalin.net/${proximityDate}?timezone=${timezone}&country=${country}`;
+};
+
+// Display day and month as text
+const getDateText = (day, month) => {
+    const date = new Date(new Date().getFullYear(), month, day);
+    const monthText = date.toLocaleString('default', { month: 'short' }).slice(0, -1);
+    return  day + " " + monthText;
+};
+
+// Get country name from country code
+const getCountry = countryCode => {
+    const countries = {
+        us: "USA",
+        sk: "Slovakia",
+        se: "Sweden",
+        pl: "Poland",
+        it: "Italy",
+        hu: "Hungary",
+        hr: "Croatia",
+        fr: "France",
+        fi: "Finland",
+        es: "Spain",
+        dk: "Denmark",
+        de: "Germany",
+        cz: "Czechia",
+        at: "Austria"
+    };
+    for (var key in countries) {
+        if(countryCode == key) return countries[key];
+    }
+    return "";
 }
 
-// Converts a month and day into a string for this year with atleast 2 numbers
-const getDateString = (month, day) => {
-    month = ('0' + month).slice(-2);
-    day = ('0' + day ).slice(-2);
-    return new Date().getFullYear() + "-" + month + "-" + day;
-}
+// Display alert, used for errors and no search matches found
+const displayAlert = (msg, context) => {
+    document.querySelector("#result").innerHTML  = `
+        <div class="alert alert-${context} text-center" role="alert">
+            ${msg}
+        </div>
+    `;
+};
 
 // Displays the response of a name search 
 const displayByName = resp => {
     const search = document.querySelector('#search').value;
-    const searchUpperCase = (search.charAt(0).toUpperCase() +search.slice(1))
+    const searchUpperCase = (search.charAt(0).toUpperCase() +search.slice(1));
+    const countryCode = document.querySelector('#country').value;
+    const country = getCountry(countryCode);
 
     resp.results.forEach(days => {
-        const date = getDateString(days.month, days.day);
+        const date = getDateText(days.day, days.month);
         const names = days.name.split(", ");
         let searchFoundHTML = "";
 
@@ -69,7 +101,7 @@ const displayByName = resp => {
         // Display all names found
         document.querySelector("#result").innerHTML += `
             <div class="jumbotron bg-primary">
-                <h2 class="text-center mb-3">${date}</h2>
+                <h2 class="text-center mb-3">${country} - ${date}</h2>
                 ${searchFoundHTML}
                 <p class="text-center mb-4 other-names">${nameString}</p>
             </div>
@@ -79,13 +111,14 @@ const displayByName = resp => {
 
 // Displays the response of a date search 
 const displayByDate = resp => {
-    const date = getDateString(resp.data[0].dates.month, resp.data[0].dates.day);
-    const country = document.querySelector('#country').value;
-    const names = resp.data[0].namedays[country];
+    const date = getDateText(resp.data[0].dates.day, resp.data[0].dates.month);
+    const countryCode = document.querySelector('#country').value;
+    const country = getCountry(countryCode);
+    const names = resp.data[0].namedays[countryCode];
     
     document.querySelector("#result").innerHTML += `
         <div class="jumbotron bg-primary">
-            <h2 class="text-center mb-3">${date}</h2>
+            <h2 class="text-center mb-3">${country} - ${date}</h2>
             <p class="text-center">${names}</p>
         </div>
     `;
@@ -93,18 +126,17 @@ const displayByDate = resp => {
 
 // Displays the response of a proximity day search 
 const displayProximityDate = resp => {
-    console.log(resp);
     document.querySelector("#result").innerHTML = "";
-    const date = getDateString(resp.data[0].dates.month, resp.data[0].dates.day);
-    const country = document.querySelector('#proximity-date-country').value;
-    const names = resp.data[0].namedays[country];
+    const date = getDateText(resp.data[0].dates.day, resp.data[0].dates.month);
+    const countryCode = document.querySelector('#proximity-date-country').value;
+    const country = getCountry(countryCode);
+    const names = resp.data[0].namedays[countryCode];
     const proximityDate = document.querySelector('#proximity-date').value;
     const proximityDateUpperCase = (proximityDate.charAt(0).toUpperCase() +proximityDate.slice(1))
     
     document.querySelector("#result").innerHTML += `
         <div class="jumbotron bg-primary">
-            <h2 class="text-center mb-3">${proximityDateUpperCase} ${date}</h2>
-            <h3 class="text-center mb-2"></h3>
+            <h2 class="text-center mb-2">${country} - ${proximityDateUpperCase} ${date}</h2>
             <p class="text-center">${names}</p>
         </div>
     `;
@@ -112,17 +144,26 @@ const displayProximityDate = resp => {
 
 // Checks if the search was for a name or a date
 const display = resp => {
-    console.log(resp);
     document.querySelector("#result").innerHTML = "";
     switch(document.querySelector('#category').value) {
         case 'name':
-            displayByName(resp);
+            //handle no search results
+            if(resp.results.length < 1) {
+                displayAlert("No matches found", "warning");
+            } else {
+                displayByName(resp);
+            }
             return;
         case 'date':
-            displayByDate(resp);
+            //handle no search results
+            if(resp.data.length < 1) {
+                displayAlert("No matches found", "warning");
+            } else {
+                displayByDate(resp);
+            }
             return;
         default:
-    }
+    };
 };
 
 /** 
@@ -150,31 +191,21 @@ document.querySelector('#category').addEventListener('change', function(e) {
 // Display search result if something was found 
 document.querySelector('#finder').addEventListener('submit', function(e) {
     e.preventDefault();
+    getNameday(setUrlSearch())
+        .then(display)
+        .catch(err =>{
+            displayAlert(err, "danger");
+        });
     
-    console.log(e);
-    console.log(setUrlSearch());
-
-    if(setUrlSearch()){
-        getNameday(setUrlSearch())
-            .then(display)
-            .catch(err =>{
-                console.error("An error occured", err);
-            });
-    }
 });
 
 // Display search for proximity days if something was found
 document.querySelector('#proximity-date-finder').addEventListener('submit', function(e) {
     e.preventDefault();
+    getNameday(setUrlProximityDate())
+        .then(displayProximityDate)
+        .catch(err =>{
+            displayAlert(err, "danger");
+        });
     
-    console.log(e);
-    console.log(setUrlProximityDate());
-
-    if(setUrlProximityDate()){
-        getNameday(setUrlProximityDate())
-            .then(displayProximityDate)
-            .catch(err =>{
-                console.error("An error occured", err);
-            });
-    }
 });
